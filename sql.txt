@@ -1,0 +1,5 @@
+CREATE TABLE [dbo].[t_File](
+	[FileID] [varchar](50) NULL,
+	[FileName] [varchar](500) NULL,
+	[FileContent] [image] NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]

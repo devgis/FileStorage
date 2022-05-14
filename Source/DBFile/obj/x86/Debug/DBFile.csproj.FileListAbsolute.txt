@@ -1,0 +1,10 @@
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\bin\Debug\DBFile.exe.config
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\bin\Debug\DBFile.exe
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\bin\Debug\DBFile.pdb
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\obj\x86\Debug\DBFile.Properties.Resources.resources
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\obj\x86\Debug\GenerateResource.read.1.tlog
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\obj\x86\Debug\GenerateResource.write.1.tlog
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\obj\x86\Debug\DBFile.exe
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\obj\x86\Debug\DBFile.pdb
+E:\WORK\2015\文件存储\Code\DBFile\DBFile\obj\x86\Debug\DBFile.Form1.resources

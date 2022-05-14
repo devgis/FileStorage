@@ -1,0 +1,99 @@
+Ubuntu下创建Hadoop用户
+
+sudo useradd -m -s /bin/bash -G sudo hadoop
+sudo su - hadoop
+注意：创建hadoop用户后，必须使用hadoop用户登陆再继续后续操作，不然启动hadoop时会出现权限问题。
+
+安装ssh
+
+sudo apt-get install ssh #安装ssh
+ssh-keygen -t rsa #生成ssh密钥
+ssh-copy-id -i .ssh/id_rsa.pub localhost #本地ssh验证
+ssh localhost
+exit
+安装JDK
+
+sudo apt-get install default-jdk
+安装hadoop
+
+cd /home/hadoop/
+sudo wget http://archive.apache.org/dist/hadoop/core/stable/hadoop-2.6.0.tar.gz      #下载hadoop
+tar xvzf hadoop-1.0.3.tar.gz #解压
+ln -s hadoop-1.0.3 hadoop #建立软链接
+编辑/etc/profile 设置环境变量
+
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-i386
+export HADOOP_HOME=/home/hadoop/hadoop-1.0.2
+export PATH=$PATH:$HADOOP_HOME/bin:$JAVA_HOME/bin
+export HADOOP_HOME_WARN_SUPPRESS=1   #忽略hadoop的警告。
+编辑~/hadoop-1.0.3/conf/hadoop-env.sh脚本，添加以下内容
+
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-i386  #添加JDK支持
+export HADOOP_SSH_OPTS="-p 22"  #配置ssh端口号(默认22)
+修改~/hadoop-1.0.3/conf/core-site.xml
+
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>fs.default.name</name>
+    <value>hdfs://localhost:9000</value>
+  </property>
+  <property>
+    <name>hadoop.tmp.dir</name>
+    <value>/home/hadoop/tmp</value>
+  </property>
+</configuration>
+修改~/hadoop-1.0.3/conf/hdfs-site.xml
+
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>dfs.name.dir</name>
+    <value>/home/hadoop/name</value>
+  </property>
+  <property>
+    <name>dfs.data.dir</name>
+    <value>/home/hadoop/data</value>
+  </property>
+  <property>
+    <name>dfs.replication</name>
+    <value>2</value>  #默认是3份
+  </property>
+</configuration>
+
+修改~/hadoop-1.0.3/conf/mapred-site.xml
+
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>mapred.job.tracker</name>
+    <value>localhost:9001</value>
+  </property>
+</configuration>
+修改~/hadoop-1.0.3/conf/masters 设置namenode节点
+
+localhost #本机
+修改~/hadoop-1.0.3/conf/slaves 设置datanode节点
+
+localhost #本机
+格式化hdfs文件系统的namenode
+
+hadoop namenode -format
+完成测试
+
+hadoop/bin/start-all.sh #启动hadoop
+hadoop dfs -mkdir test #hdfs操作，建立目录
+hadoop dfs -ls #查看现有文件
+hadoop/bin/stop-all.sh #停止hadoop 
